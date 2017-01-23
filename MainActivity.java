@@ -23,7 +23,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    final String urlSTR = "http://faf5b0ec.ngrok.io/asko1/test1.txt";
+    final String urlSTR = "http://faf5b0ec.ngrok.io/asko1/JSON.txt";
     private TextView txtview;
 
     @Override
