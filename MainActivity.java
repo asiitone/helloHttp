@@ -13,6 +13,10 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -63,10 +67,21 @@ public class MainActivity extends AppCompatActivity {
                 while ((line = br.readLine()) != null) {
                     buffer.append(line);
                 }
-                return buffer.toString();
+
+
+                JSONObject jsonParent = new JSONObject(buffer.toString());
+                JSONArray jsonArray = jsonParent.getJSONArray("category");
+                StringBuffer jsonStr = new StringBuffer();
+
+                for (int i=0;i<jsonArray.length(); i++) {
+                    JSONObject jsonChild = jsonArray.getJSONObject(i);
+                    jsonStr.append(jsonChild.getString("subcategory1").toString() + " " + jsonChild.getString("subcategory2") + "\n");
+                }
+                return jsonStr.toString();
             }
             catch(MalformedURLException e) { e.printStackTrace(); }
             catch(IOException e) {e.printStackTrace(); }
+            catch (JSONException e) { e.printStackTrace();}
             finally {
                 if (httpConnection != null) {
                     httpConnection.disconnect();
